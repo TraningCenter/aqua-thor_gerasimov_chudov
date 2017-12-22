@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<input>
+    <field x="10" y="15">
+        <closed>true</closed>
+    </field>
+    
+    <streams>
+        <stream>
+            <speed>1</speed>
+            <start_coord>12</start_coord>
+            <finish_coord>17</finish_coord>
+        </stream>
+    </streams>
+    
+    <fishes>
+        <fish type="victim" x="3" y="5">
+            <live_time>15</live_time>
+            <live_time_without_food>15</live_time_without_food>
+            <speed>2</speed>
+            <sense_radius>4</sense_radius>
+        </fish>
+        <fish type="predator" x="3" y="6">
+            <live_time>15</live_time>
+            <live_time_without_food>15</live_time_without_food>
+            <speed>2</speed>
+            <sense_radius>4</sense_radius>
+        </fish>
+    </fishes>
+</input>

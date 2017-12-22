@@ -5,12 +5,26 @@
  */
 package com.infotech.aquaThor;
 
+import com.infotech.aquaThor.interfaces.*;
+import com.infotech.aquaThor.model.Model;
+import com.infotech.aquaThor.view.parsers.domParser;
+
 /**
  *
  * @author alegerd
  */
 public class Main {
     public static void main(String[] args){
-        
+        Model model;
+        IParser dom = new domParser();
+        try{
+            model = dom.parse();
+            for(IFish fish : model.getFishes()){
+                System.out.println();
+                System.out.println(fish.toString());
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
