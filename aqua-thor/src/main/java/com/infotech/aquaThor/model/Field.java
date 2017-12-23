@@ -16,7 +16,7 @@ public class Field implements IField{
     private Integer height;
     private boolean closed;
     private Integer[][] ocean;
-
+    
     public Field(Integer width, Integer height, boolean closed) {
         this.width = width;
         this.height = height;
@@ -24,6 +24,12 @@ public class Field implements IField{
         makeOcean();
     }
     
+    public Field(Integer width, Integer height) {
+        this.width = width;
+        this.height = height;
+        makeOcean();
+    }
+        
     private void makeOcean(){
         this.ocean = new Integer[width][height];
     }

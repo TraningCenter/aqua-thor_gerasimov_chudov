@@ -6,7 +6,7 @@
     
     <streams>
         <stream orientation="horizontal">
-            <speed>1</speed>
+            <stream_speed>1</stream_speed>
             <start_coord>12</start_coord>
             <finish_coord>17</finish_coord>
         </stream>

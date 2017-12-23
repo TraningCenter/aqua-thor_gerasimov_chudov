@@ -84,7 +84,7 @@ public class domParser implements IParser{
             
             if(sNode.getNodeType() == Node.ELEMENT_NODE){
                 Stream stream = new Stream();
-                stream.setSpeed(Integer.parseInt(elem.getElementsByTagName("speed").item(0).getTextContent()));
+                stream.setSpeed(Integer.parseInt(elem.getElementsByTagName("stream_speed").item(0).getTextContent()));
                 stream.setOrientation(elem.getAttribute("orientation").equals("horizontal")? 
                                                                         Orientation.HORIZONTAL : 
                                                                         Orientation.VERTICAL);

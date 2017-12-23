@@ -18,5 +18,11 @@ public interface IStream {
 
     void setFinishPos(Integer finishPos);
     
+    void setSpeed(Integer speed);
+    
+    Integer getSpeed();
+    
     String toString();
+    
+    
 }
