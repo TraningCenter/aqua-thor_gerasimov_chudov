@@ -18,6 +18,16 @@ public class Fish extends Element implements IFish{
     Integer speed;
     Integer senseRadius;
 
+    public Fish(Integer liveTime, Integer liveTimeWithoutFood, Integer speed, Integer senseRadius) {
+        this.liveTime = liveTime;
+        this.liveTimeWithoutFood = liveTimeWithoutFood;
+        this.speed = speed;
+        this.senseRadius = senseRadius;
+    }
+
+    public Fish() {
+    }
+  
     public int getLiveTime() {
         return liveTime;
     }

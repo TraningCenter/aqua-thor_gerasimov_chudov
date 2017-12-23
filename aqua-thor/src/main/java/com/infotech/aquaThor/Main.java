@@ -19,10 +19,7 @@ public class Main {
         IParser dom = new domParser();
         try{
             model = dom.parse();
-            for(IFish fish : model.getFishes()){
-                System.out.println();
-                System.out.println(fish.toString());
-            }
+            System.out.println(model.toString());
         }catch(Exception e){
             e.printStackTrace();
         }

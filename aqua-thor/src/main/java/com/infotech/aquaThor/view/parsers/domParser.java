@@ -6,9 +6,12 @@
 package com.infotech.aquaThor.view.parsers;
 
 import com.infotech.aquaThor.interfaces.*;
+import com.infotech.aquaThor.model.Field;
 import com.infotech.aquaThor.model.Model;
 import com.infotech.aquaThor.model.entities.Fish;
 import com.infotech.aquaThor.model.entities.Shark;
+import com.infotech.aquaThor.model.entities.Stream;
+import com.infotech.aquaThor.model.utils.Orientation;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +28,10 @@ import org.w3c.dom.Element;
 public class domParser implements IParser{
     
     public Model parse() throws Exception{
-        Model result = new Model();
+        Model result;
         List<IFish> fishes = new ArrayList<>();
         List<IStream> streams = new ArrayList<>();
+        IField field;
         
         InputStream input = ClassLoader.getSystemResourceAsStream("input.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -38,9 +42,10 @@ public class domParser implements IParser{
         
         System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
         
+        Node fieldNode = doc.getElementsByTagName("field").item(0);
         NodeList fishNodes = doc.getElementsByTagName("fish");
-        
-        
+        NodeList streamNodes = doc.getElementsByTagName("stream");
+       
         for(int i = 0; i < fishNodes.getLength(); i++){
             Node fNode =  fishNodes.item(i);
             
@@ -72,7 +77,30 @@ public class domParser implements IParser{
             }
         }
         
-        result.setFishes(fishes);
+        for(int i = 0; i < streamNodes.getLength(); i++){
+            Node sNode = streamNodes.item(i);
+            
+            Element elem = (Element)sNode;
+            
+            if(sNode.getNodeType() == Node.ELEMENT_NODE){
+                Stream stream = new Stream();
+                stream.setSpeed(Integer.parseInt(elem.getElementsByTagName("speed").item(0).getTextContent()));
+                stream.setOrientation(elem.getAttribute("orientation").equals("horizontal")? 
+                                                                        Orientation.HORIZONTAL : 
+                                                                        Orientation.VERTICAL);
+                stream.setStartPos(Integer.parseInt(elem.getElementsByTagName("start_coord").item(0).getTextContent()));
+                stream.setFinishPos(Integer.parseInt(elem.getElementsByTagName("finish_coord").item(0).getTextContent()));
+                streams.add(stream);
+            }
+        }
+        
+        Element fieldElem = (Element)fieldNode;
+        Integer width = Integer.parseInt(fieldElem.getAttribute("width"));
+        Integer height = Integer.parseInt(fieldElem.getAttribute("height"));
+        boolean closed = Boolean.parseBoolean(fieldElem.getElementsByTagName("closed").item(0).getTextContent());
+        field = new Field(width, height, closed);
+        
+        result = new Model(field, fishes, streams);
         return result;
     }
 }

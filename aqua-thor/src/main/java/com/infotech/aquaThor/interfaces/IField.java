@@ -10,5 +10,21 @@ package com.infotech.aquaThor.interfaces;
  * @author alegerd
  */
 public interface IField {
+     Integer getWidth();
+
+     void setWidth(Integer width);
     
+     Integer getHeight();
+
+     void setHeight(Integer height);
+
+     boolean isClosed();
+
+     void setClosed(boolean closed);
+
+     Integer[][] getOcean();
+
+     void setOcean(Integer[][] ocean);
+    
+    String toString();
 }

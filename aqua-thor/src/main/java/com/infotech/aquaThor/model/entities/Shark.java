@@ -18,6 +18,16 @@ public class Shark extends Element implements IFish{
     Integer speed;
     Integer senseRadius;
 
+    public Shark() {
+    }
+
+    public Shark(Integer liveTime, Integer liveTimeWithoutFood, Integer speed, Integer senseRadius) {
+        this.liveTime = liveTime;
+        this.liveTimeWithoutFood = liveTimeWithoutFood;
+        this.speed = speed;
+        this.senseRadius = senseRadius;
+    }
+    
     public int getLiveTime() {
         return liveTime;
     }

@@ -18,6 +18,12 @@ public class Model {
     private List<IFish> fishes = new ArrayList<>();
     private List<IStream> streams = new ArrayList<>();
 
+    public Model(IField field, List<IFish> fishes, List<IStream> streams) {
+        this.fishes = fishes;
+        this.streams = streams;
+        this.field = field;
+    }
+
     public List<IFish> getFishes() {
         return fishes;
     }
@@ -40,5 +46,20 @@ public class Model {
     
     public void setField(IField field){
         this.field = field;
+    }
+    
+    public String toString(){
+        String result = new String();
+        result += "Model";
+        result += "\n------------------";
+        result += "\n" + field.toString() + "\n";
+        for(IFish fish : fishes){
+            result += "\n" + fish.toString() +"\n";
+        }
+        for(IStream stream : streams){
+            result += "\n" + stream.toString() + "\n";
+        }
+        result += "\n------------------";
+        return result;
     }
 }

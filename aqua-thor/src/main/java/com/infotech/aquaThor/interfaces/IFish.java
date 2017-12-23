@@ -26,4 +26,6 @@ public interface IFish {
     public int getSenseRadius();
 
     public void setSenseRadius(int senseRadius);
+    
+    String toString();
 }

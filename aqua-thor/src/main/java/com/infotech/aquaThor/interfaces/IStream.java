@@ -10,5 +10,13 @@ package com.infotech.aquaThor.interfaces;
  * @author alegerd
  */
 public interface IStream {
+    Integer getStartPos();
+
+    void setStartPos(Integer startPos);
+
+    Integer getFinishPos();
+
+    void setFinishPos(Integer finishPos);
     
+    String toString();
 }
