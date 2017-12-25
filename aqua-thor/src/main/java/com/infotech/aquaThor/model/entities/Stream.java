@@ -7,15 +7,29 @@ package com.infotech.aquaThor.model.entities;
 
 import com.infotech.aquaThor.interfaces.IStream;
 import com.infotech.aquaThor.model.utils.Orientation;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
  * @author alegerd
  */
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Stream implements IStream{
+    
+    @XmlElement(name="start_coord")
     private Integer startPos;
+    
+    @XmlElement(name="finish_coord")
     private Integer finishPos;
+    
+    @XmlElement(name="stream_speed")
     private Integer speed;
+    
+    @XmlAttribute(name="orientation")
     private Orientation orientation;
 
     public Stream() {
