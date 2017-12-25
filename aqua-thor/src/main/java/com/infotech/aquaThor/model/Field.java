@@ -5,17 +5,33 @@
  */
 package com.infotech.aquaThor.model;
 import com.infotech.aquaThor.interfaces.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author alegerd
  */
+
+@XmlRootElement(name="folder")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Field implements IField{
     
+    @XmlAttribute(name="width")
     private Integer width;
+    
+    @XmlAttribute(name="height")
     private Integer height;
+    
+    @XmlElement(name="closed")
     private boolean closed;
+    
     private Integer[][] ocean;
+    
+    public Field(){}
     
     public Field(Integer width, Integer height, boolean closed) {
         this.width = width;

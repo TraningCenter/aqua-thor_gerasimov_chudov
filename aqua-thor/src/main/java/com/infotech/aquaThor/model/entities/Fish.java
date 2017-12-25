@@ -12,7 +12,9 @@ import com.infotech.aquaThor.model.utils.Element;
  *
  * @author alegerd
  */
+
 public class Fish extends Element implements IFish{
+    
     Integer liveTime;
     Integer liveTimeWithoutFood;
     Integer speed;

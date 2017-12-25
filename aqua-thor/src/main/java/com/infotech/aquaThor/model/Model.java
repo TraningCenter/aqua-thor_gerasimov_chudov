@@ -6,18 +6,44 @@
 package com.infotech.aquaThor.model;
 
 import com.infotech.aquaThor.interfaces.*;
+import com.infotech.aquaThor.model.entities.Fish;
+import com.infotech.aquaThor.model.entities.Shark;
+import com.infotech.aquaThor.model.entities.Stream;
+import com.infotech.aquaThor.view.parsers.FishAdapter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  *
  * @author alegerd
  */
+
+@XmlRootElement(name="input")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Model {
+    
+    @XmlElement(name="field", type=Field.class)
     private IField field;
+    
+    @XmlElementWrapper(name="fishes")
+    @XmlElement(name="fish")
+    @XmlJavaTypeAdapter(FishAdapter.class)
     private List<IFish> fishes = new ArrayList<>();
+    
+    @XmlElementWrapper(name="streams")
+    @XmlElement(name="stream", type=Stream.class)
     private List<IStream> streams = new ArrayList<>();
 
+    public Model(){}
+    
     public Model(IField field, List<IFish> fishes, List<IStream> streams) {
         this.fishes = fishes;
         this.streams = streams;

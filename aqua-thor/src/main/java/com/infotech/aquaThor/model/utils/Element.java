@@ -5,10 +5,13 @@
  */
 package com.infotech.aquaThor.model.utils;
 
+
+
 /**
  *
  * @author alegerd
  */
+
 public abstract class Element {
     protected Tuple<Integer,Integer> coords = new Tuple<>();
     

@@ -5,10 +5,15 @@
  */
 package com.infotech.aquaThor.interfaces;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 /**
  *
  * @author alegerd
  */
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public interface IStream {
     Integer getStartPos();
 
