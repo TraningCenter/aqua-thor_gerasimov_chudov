@@ -5,6 +5,12 @@
  */
 package com.infotech.aquaThor.model;
 import com.infotech.aquaThor.interfaces.*;
+import com.infotech.aquaThor.model.utils.Cell;
+import com.infotech.aquaThor.model.utils.CellContent;
+import com.infotech.aquaThor.model.utils.Tuple;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -29,7 +35,7 @@ public class Field implements IField{
     @XmlElement(name="closed")
     private boolean closed;
     
-    private Integer[][] ocean;
+    private Cell[][] ocean;
     
     public Field(){}
     
@@ -45,9 +51,28 @@ public class Field implements IField{
         this.height = height;
         makeOcean();
     }
-        
+    
+    public void setCell(Tuple cell, CellContent value){
+        ocean[(int)cell.x][(int)cell.y] = new Cell(cell, value);
+    }
+  
     private void makeOcean(){
-        this.ocean = new Integer[width][height];
+        this.ocean = new Cell[width][height];
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < height; j++){
+                ocean[i][j] = new Cell(new Tuple(i,j), CellContent.EMPTY);
+            }
+        }
+    }
+    
+    public List<Cell> getAllCells(){
+        List<Cell> allCells = new ArrayList<>();
+        for(Cell[] row : ocean){
+            for(Cell cell : row){
+                allCells.add(cell);
+            }
+        }
+        return allCells;
     }
 
     public Integer getWidth() {
@@ -74,11 +99,11 @@ public class Field implements IField{
         this.closed = closed;
     }
 
-    public Integer[][] getOcean() {
+    public Cell[][] getOcean() {
         return ocean;
     }
 
-    public void setOcean(Integer[][] ocean) {
+    public void setOcean(Cell[][] ocean) {
         this.ocean = ocean;
     }
     

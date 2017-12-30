@@ -7,8 +7,12 @@ package com.infotech.aquaThor.model;
 
 import com.infotech.aquaThor.interfaces.*;
 import com.infotech.aquaThor.model.entities.Fish;
+import com.infotech.aquaThor.model.entities.Food;
 import com.infotech.aquaThor.model.entities.Shark;
 import com.infotech.aquaThor.model.entities.Stream;
+import com.infotech.aquaThor.model.utils.Cell;
+import com.infotech.aquaThor.model.utils.CellContent;
+import com.infotech.aquaThor.model.utils.Tuple;
 import com.infotech.aquaThor.view.parsers.FishAdapter;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +32,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name="input")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Model {
+public class Model implements IObserver{
     
     @XmlElement(name="field", type=Field.class)
     private IField field;
@@ -41,6 +45,10 @@ public class Model {
     @XmlElementWrapper(name="streams")
     @XmlElement(name="stream", type=Stream.class)
     private List<IStream> streams = new ArrayList<>();
+    
+    @XmlElementWrapper(name="foods")
+    @XmlElement(name="food", type=Food.class)
+    private List<IFood> food = new ArrayList<>();
 
     public Model(){}
     
@@ -48,8 +56,103 @@ public class Model {
         this.fishes = fishes;
         this.streams = streams;
         this.field = field;
+        createOcean();
     }
 
+    public void bypassAllElements() throws Exception{
+        List<Cell> allCells = field.getAllCells();
+        for(IFish fish : fishes){
+            Tuple nextCellForFish = fish.move(generateFieldOfView(fish));
+            for(Cell cell : allCells){
+                if(cell.getCoords().equals(fish.getCoordinates()))
+                {
+                    cell.setContent(CellContent.EMPTY);
+                }
+            }
+            for(Cell cell : allCells){
+                if(cell.getCoords().equals(nextCellForFish))
+                {
+                    if(fish instanceof Fish)
+                        cell.setContent(CellContent.FISH);
+                    else if(fish instanceof Shark)
+                        cell.setContent(CellContent.SHARK);
+                    fish.setCoordinates(nextCellForFish);
+                }
+            }
+        }
+    }
+    
+    public void fishEatten(Cell cell){
+        List<IFish> removingFishes = new ArrayList();
+        for(IFish fish: fishes){
+            if(fish.getCoordinates().equals(cell.getCoords())){
+                removingFishes.add(fish);
+                cell.setContent(CellContent.EMPTY);
+            }
+        }
+        System.out.println("[SHARK ATE FISH]");
+        fishes.removeAll(removingFishes);
+    }  
+    
+    public void foodEatten(Cell cell){
+        List<IFood> removingFood = new ArrayList();
+        for(IFood f: food){
+            if(f.getCoordinates().equals(cell.getCoords())){
+                removingFood.add(f);
+                cell.setContent(CellContent.EMPTY);
+            }
+        }
+        food.removeAll(removingFood);
+    }
+    
+    private List<Cell> generateFieldOfView(IFish fish){
+        List<Cell> fieldOfView = new ArrayList<>();
+        Integer radius = fish.getSenseRadius();
+        List<Cell> allCells = field.getAllCells();
+        Integer x = fish.getCoordinates().x;
+        Integer y = fish.getCoordinates().y;
+        if(field.isClosed()){
+            for(Cell cell : allCells){
+                Integer cellx = cell.getCoords().x;
+                Integer celly = cell.getCoords().y;
+                if(Math.abs(cellx - x) <= radius 
+                        && Math.abs(celly - y) <= radius){
+                    cell.setTempCoords(new Tuple(x - cellx, y - celly));
+                    fieldOfView.add(cell);
+                }
+            }
+        }
+        else{
+            
+        }
+        return fieldOfView;
+    }
+    
+    private void createOcean(){
+        for(IFish fish : fishes){
+            CellContent cellValue = CellContent.EMPTY;
+            if(fish instanceof Fish){
+                cellValue = CellContent.FISH;
+            }
+            else if(fish instanceof Shark){
+                cellValue = CellContent.SHARK;
+            }
+            field.setCell(fish.getCoordinates(), cellValue);
+        }
+        createFood();
+        setObserver();
+    }
+    
+    private void setObserver(){
+        for(IFish fish : fishes){
+            fish.addObserver(this);
+        }
+    }
+    
+    private void createFood(){
+        //TODO
+    }
+    
     public List<IFish> getFishes() {
         return fishes;
     }

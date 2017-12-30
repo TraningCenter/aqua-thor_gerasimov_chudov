@@ -13,7 +13,7 @@ package com.infotech.aquaThor.model.utils;
  */
 
 public abstract class Element {
-    protected Tuple<Integer,Integer> coords = new Tuple<>();
+    protected Tuple coords = new Tuple();
     
     public void setXCoord(Integer x){
         coords.x = x;
@@ -29,5 +29,13 @@ public abstract class Element {
     
     public Integer getYCoord(){
         return coords.y;
+    }
+    
+    public void setCoords(Tuple newCoords){
+        this.coords = newCoords;
+    }
+    
+    public Tuple getCoordinetes(){
+        return coords;
     }
 }

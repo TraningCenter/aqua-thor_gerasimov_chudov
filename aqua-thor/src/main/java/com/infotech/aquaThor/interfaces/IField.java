@@ -5,6 +5,10 @@
  */
 package com.infotech.aquaThor.interfaces;
 
+import com.infotech.aquaThor.model.utils.Cell;
+import com.infotech.aquaThor.model.utils.CellContent;
+import com.infotech.aquaThor.model.utils.Tuple;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -16,6 +20,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public interface IField {
+    
+     public void setCell(Tuple cell, CellContent value);
+     
+     List<Cell> getAllCells();
+     
      Integer getWidth();
 
      void setWidth(Integer width);
@@ -28,9 +37,9 @@ public interface IField {
 
      void setClosed(boolean closed);
 
-     Integer[][] getOcean();
+     Cell[][] getOcean();
 
-     void setOcean(Integer[][] ocean);
+     void setOcean(Cell[][] ocean);
     
     String toString();
 }

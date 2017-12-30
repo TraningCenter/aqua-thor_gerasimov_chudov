@@ -5,6 +5,9 @@
  */
 package com.infotech.aquaThor.interfaces;
 
+import com.infotech.aquaThor.model.utils.Cell;
+import com.infotech.aquaThor.model.utils.Tuple;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -16,6 +19,14 @@ import javax.xml.bind.annotation.XmlAccessorType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public interface IFish {
+   
+    public void addObserver(IObserver observer);
+    
+    public Tuple move(List<Cell> fieldOfview);
+    
+    public Tuple getCoordinates();
+    
+    public void setCoordinates(Tuple coord);
     
     public int getLiveTime();
 

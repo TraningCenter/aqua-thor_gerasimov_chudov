@@ -6,7 +6,13 @@
 package com.infotech.aquaThor.model.entities;
 
 import com.infotech.aquaThor.interfaces.IFish;
+import com.infotech.aquaThor.interfaces.IObserver;
+import com.infotech.aquaThor.model.utils.Cell;
+import com.infotech.aquaThor.model.utils.CellContent;
 import com.infotech.aquaThor.model.utils.Element;
+import com.infotech.aquaThor.model.utils.Tuple;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -19,6 +25,7 @@ public class Fish extends Element implements IFish{
     Integer liveTimeWithoutFood;
     Integer speed;
     Integer senseRadius;
+    List<IObserver> observers = new ArrayList<>();
 
     public Fish(Integer liveTime, Integer liveTimeWithoutFood, Integer speed, Integer senseRadius) {
         this.liveTime = liveTime;
@@ -28,8 +35,170 @@ public class Fish extends Element implements IFish{
     }
 
     public Fish() {
+        
     }
-  
+    
+    public void addObserver(IObserver observer){
+        observers.add(observer);
+    }
+    
+    public Tuple move(List<Cell> fieldOfView){
+        Tuple nextCell = coords;
+
+        if(fieldOfView != null && fieldOfView.size() > 0){
+            Cell selfCell = fieldOfView.get(0);
+            
+            for(Cell cell : fieldOfView){
+                if(cell.getTempCoords().x == 0 && cell.getTempCoords().y == 0){
+                    selfCell = cell;          // нашли клетку в которой стоим
+                }
+            }
+            
+            Cell food = findFood(selfCell, fieldOfView);
+            Cell enemy = findDanger(selfCell, fieldOfView);
+            List<Cell> possibleCells = getNearbyCells(selfCell.getTempCoords(), fieldOfView);
+            
+            if(enemy != null){
+                Cell next = moveToFromObject(selfCell, enemy, possibleCells, false);
+                checkCell(next);
+                nextCell = next.getCoords();
+            }
+            else if(food != null){
+                Cell next = moveToFromObject(selfCell, food, possibleCells, true);
+                checkCell(next);
+                nextCell = next.getCoords();
+            }
+            else{
+            }
+        }
+        return nextCell;
+    }
+    
+    private List<Cell> getNearbyCells(Tuple self, List<Cell> fieldOfView){
+        List<Cell> result = new ArrayList<>();
+        for(Cell cell : fieldOfView){
+            Integer x = cell.getTempCoords().x;
+            Integer y = cell.getTempCoords().y;
+            Integer selfx = self.x;
+            Integer selfy = self.y;
+            
+            if((Math.abs(x - selfx) <= 1) 
+                    && (Math.abs(y - selfy) <= 1) 
+                    && cell.getContent() != CellContent.FISH 
+                    && cell.getContent() != CellContent.SHARK){
+                result.add(cell);
+            }
+        }
+        return result;
+    }
+    
+    private Cell moveToFromObject(Cell self, Cell object, List<Cell> fieldOfView, boolean direction){
+        Cell nextCell = self;
+        Double distance;
+        Double currentDistance;
+        
+        if(direction){           
+            distance = 1000.;
+            for(Cell cell : fieldOfView){
+                Integer x = cell.getTempCoords().x;
+                Integer y = cell.getTempCoords().y;
+                Integer objx = object.getTempCoords().x;
+                Integer objy = object.getTempCoords().y;
+                
+                currentDistance = Math.sqrt(Math.abs(x-objx)*Math.abs(x-objx) + Math.abs(y-objy)*Math.abs(y-objy));
+                if(currentDistance < distance){
+                    distance = currentDistance;
+                    nextCell = cell;
+                }
+            }
+        }
+        else{
+            distance = 0.;
+            for(Cell cell : fieldOfView){
+                Integer x = cell.getTempCoords().x;
+                Integer y = cell.getTempCoords().y;
+                Integer objx = object.getTempCoords().x;
+                Integer objy = object.getTempCoords().y;
+                
+                currentDistance = Math.sqrt(Math.abs(x-objx)*Math.abs(x-objx) + Math.abs(y-objy)*Math.abs(y-objy));
+                if(currentDistance > distance){
+                    distance = currentDistance;
+                    nextCell = cell;
+                }
+            }
+        }
+        
+        return nextCell;
+    }
+    
+    private Cell findFood(Cell self, List<Cell> fieldOfView){
+        Cell foodCell = null;
+        Double distance;
+        Double currentDistance;
+        
+            distance = 1000.;
+            for(Cell cell : fieldOfView){
+                if(cell.getContent() == CellContent.FOOD){
+                    Integer x = cell.getTempCoords().x;
+                    Integer y = cell.getTempCoords().y;
+                    Integer selfx = self.getTempCoords().x;
+                    Integer selfy = self.getTempCoords().y;
+                    
+                    currentDistance = Math.sqrt(Math.abs(x-selfx)*Math.abs(x-selfx) + Math.abs(y-selfy)*Math.abs(y-selfy));
+                    if(currentDistance < distance){
+                        distance = currentDistance;
+                        foodCell = cell;
+                    }
+                }
+            }
+            
+        return foodCell;
+    }
+    
+    private Cell findDanger(Cell self, List<Cell> fieldOfView){
+        Cell enemyCell = null;
+        Double distance;
+        Double currentDistance;
+        
+            distance = 1000.;
+            for(Cell cell : fieldOfView){
+                if(cell.getContent() == CellContent.SHARK){
+                    Integer x = cell.getTempCoords().x;
+                    Integer y = cell.getTempCoords().y;
+                    Integer selfx = self.getTempCoords().x;
+                    Integer selfy = self.getTempCoords().y;
+                    
+                    currentDistance = Math.sqrt(Math.abs(x-selfx)*Math.abs(x-selfx) + Math.abs(y-selfy)*Math.abs(y-selfy));
+                    if(currentDistance < distance){
+                        distance = currentDistance;
+                        enemyCell = cell;
+                    }
+                }
+            }
+            
+        return enemyCell;
+    }
+    
+    public void setCoordinates(Tuple coords){
+        setCoords(coords);
+    }
+    
+    private void checkCell(Cell cell){
+        if(cell.getContent() == CellContent.FOOD){
+            eatFood(cell);
+        }
+    }
+    
+    private void eatFood(Cell foodCell){
+        for(IObserver obs : observers){
+            obs.foodEatten(foodCell);
+        }
+    }
+    
+    public Tuple getCoordinates(){
+        return new Tuple(getXCoord(), getYCoord());
+    }
+    
     public int getLiveTime() {
         return liveTime;
     }
