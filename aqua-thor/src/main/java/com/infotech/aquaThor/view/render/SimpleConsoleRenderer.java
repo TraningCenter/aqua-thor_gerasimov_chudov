@@ -42,11 +42,11 @@ public class SimpleConsoleRenderer extends Thread implements IRenderer{
                     if(cell.getContent() == CellContent.EMPTY)
                         System.out.print("-");
                     else if(cell.getContent() == CellContent.FOOD)
-                        System.out.print(1);
+                        System.out.print("*");
                     else if(cell.getContent() == CellContent.FISH)
-                        System.out.print(2);
+                        System.out.print("f");
                     else if(cell.getContent() == CellContent.SHARK)
-                        System.out.print(3);
+                        System.out.print("s");
                 }
                 System.out.println();
             }

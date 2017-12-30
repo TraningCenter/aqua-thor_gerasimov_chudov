@@ -33,13 +33,13 @@ public class StaxParser implements IParser{
     IStream stream;
     IFish someFish;
     
-    public Model parse() throws Exception {
+    public Model parse(String file) throws Exception {
         Model model;
         List<IFish> fishes = new ArrayList<>();
         List<IStream> streams = new ArrayList<>();
         
         XMLInputFactory factory = XMLInputFactory.newInstance();
-        XMLEventReader eventReader = factory.createXMLEventReader(ClassLoader.getSystemResourceAsStream("input.xml"));
+        XMLEventReader eventReader = factory.createXMLEventReader(ClassLoader.getSystemResourceAsStream(file));
         
         while (eventReader.hasNext()){
             XMLEvent xmlEvent = eventReader.nextEvent();

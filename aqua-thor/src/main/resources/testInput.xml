@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <input>
-    <field width="10" height="10">
-        <closed>false</closed>
+    <field width="10" height="15">
+        <closed>true</closed>
     </field>
     
     <streams>
@@ -13,26 +13,17 @@
     </streams>
     
     <fishes>
-        <fish type="victim" x="2" y="0">
+        <fish type="victim" x="3" y="5">
             <live_time>15</live_time>
             <live_time_without_food>15</live_time_without_food>
             <speed>2</speed>
-            <sense_radius>3</sense_radius>
+            <sense_radius>4</sense_radius>
         </fish>
-        
-        <fish type="victim" x="3" y="3">
+        <fish type="predator" x="3" y="6">
             <live_time>15</live_time>
             <live_time_without_food>15</live_time_without_food>
             <speed>2</speed>
-            <sense_radius>3</sense_radius>
+            <sense_radius>4</sense_radius>
         </fish>
-        
-        <fish type="predator" x="2" y="9">
-            <live_time>15</live_time>
-            <live_time_without_food>15</live_time_without_food>
-            <speed>2</speed>
-            <sense_radius>3</sense_radius>
-        </fish>
-        
     </fishes>
 </input>

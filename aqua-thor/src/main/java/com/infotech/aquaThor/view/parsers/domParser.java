@@ -28,13 +28,13 @@ import org.w3c.dom.Element;
  */
 public class domParser implements IParser{
     
-    public Model parse() throws Exception{
+    public Model parse(String file) throws Exception{
         Model result;
         List<IFish> fishes = new ArrayList<>();
         List<IStream> streams = new ArrayList<>();
         IField field;
         
-        InputStream input = ClassLoader.getSystemResourceAsStream("input.xml");
+        InputStream input = ClassLoader.getSystemResourceAsStream(file);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 	Document doc = dBuilder.parse(input);

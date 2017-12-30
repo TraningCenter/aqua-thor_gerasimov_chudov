@@ -177,14 +177,14 @@ class MyHandler extends DefaultHandler{
 }
 
 public class SaxParser implements IParser{
-    public Model parse() throws Exception{
+    public Model parse(String file) throws Exception{
         Model result;
         
         SAXParserFactory factory = SAXParserFactory.newInstance();
 	SAXParser saxParser = factory.newSAXParser();
         
         MyHandler handler = new MyHandler();
-        InputStream stream = ClassLoader.getSystemResourceAsStream("input.xml");
+        InputStream stream = ClassLoader.getSystemResourceAsStream(file);
         saxParser.parse(stream, handler);
         IField field = handler.getFieldList().get(0);
         result = new Model(field, handler.getFishList(), handler.getStreamList());

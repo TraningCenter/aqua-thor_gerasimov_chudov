@@ -13,5 +13,5 @@ import com.infotech.aquaThor.model.Model;
  * @author alegerd
  */
 public interface IParser {
-    Model parse() throws Exception;
+    Model parse(String file) throws Exception;
 }

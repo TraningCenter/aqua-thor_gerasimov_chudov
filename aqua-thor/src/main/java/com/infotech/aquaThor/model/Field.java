@@ -52,15 +52,15 @@ public class Field implements IField{
         makeOcean();
     }
     
-    public void setCell(Tuple cell, CellContent value){
-        ocean[(int)cell.x][(int)cell.y] = new Cell(cell, value);
+    public void setCell(Tuple coord, CellContent value){
+        ocean[(int)coord.y][(int)coord.x] = new Cell(coord, value);
     }
   
     private void makeOcean(){
-        this.ocean = new Cell[width][height];
+        this.ocean = new Cell[height][width];
         for(int i = 0; i < width; i++){
             for(int j = 0; j < height; j++){
-                ocean[i][j] = new Cell(new Tuple(i,j), CellContent.EMPTY);
+                ocean[j][i] = new Cell(new Tuple(i,j), CellContent.EMPTY);
             }
         }
     }

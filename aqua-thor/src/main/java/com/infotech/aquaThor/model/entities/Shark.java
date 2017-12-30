@@ -44,7 +44,7 @@ public class Shark extends Element implements IFish{
             Cell selfCell = fieldOfView.get(0);
             
             for(Cell cell : fieldOfView){
-                if(cell.getTempCoords().x == 0 && cell.getTempCoords().y == 0){
+                if(cell.getTempCoords().x == senseRadius && cell.getTempCoords().y == senseRadius){
                     selfCell = cell;          // нашли клетку в которой стоим
                 }
             }

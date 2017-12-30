@@ -18,18 +18,24 @@ public class Application extends Thread{
     Model model;
     IRenderer render;
     IField field;
+    FoodCreator fc;
     
     public Application(Model model){
         this.model = model;
         field = model.getField();
         render = new SimpleConsoleRenderer(field);
+        fc = new FoodCreator(field);
     }
     
     @Override
     public void run() {
        
         Thread ren = (Thread)render;
+        Thread foodCreator = (Thread)fc;
+        
+        foodCreator.start();
         ren.start();
+        
         while(true){
             if(!Thread.interrupted()){
                 try{
@@ -37,6 +43,7 @@ public class Application extends Thread{
                     synchronized(this.field){
                         field = model.getField();
                     }
+                    Thread.sleep(1000);
                 }catch(Exception e){
                     
                 }

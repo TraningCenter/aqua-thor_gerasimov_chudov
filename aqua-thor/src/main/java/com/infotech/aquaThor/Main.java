@@ -25,7 +25,7 @@ public class Main {
         Application life;
         
         try{
-            model = dom.parse();
+            model = dom.parse("input.xml");
             life = new Application(model);
             life.start();                 // красивая строчка :)
         }catch(Exception e){

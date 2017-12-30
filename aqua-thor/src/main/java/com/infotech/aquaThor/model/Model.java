@@ -16,6 +16,7 @@ import com.infotech.aquaThor.model.utils.Tuple;
 import com.infotech.aquaThor.view.parsers.FishAdapter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
@@ -102,19 +103,22 @@ public class Model implements IObserver{
                 cell.setContent(CellContent.EMPTY);
             }
         }
+        System.out.println("[FISH ATE FOOD]");
         food.removeAll(removingFood);
     }
     
     private List<Cell> generateFieldOfView(IFish fish){
         List<Cell> fieldOfView = new ArrayList<>();
         Integer radius = fish.getSenseRadius();
-        List<Cell> allCells = field.getAllCells();
+        
         Integer x = fish.getCoordinates().x;
         Integer y = fish.getCoordinates().y;
         if(field.isClosed()){
+            List<Cell> allCells = field.getAllCells();
+            
             for(Cell cell : allCells){
-                Integer cellx = cell.getCoords().x;
-                Integer celly = cell.getCoords().y;
+                Integer cellx = cell.getCoords().x; 
+                Integer celly = cell.getCoords().y; 
                 if(Math.abs(cellx - x) <= radius 
                         && Math.abs(celly - y) <= radius){
                     cell.setTempCoords(new Tuple(x - cellx, y - celly));
@@ -123,6 +127,23 @@ public class Model implements IObserver{
             }
         }
         else{
+            Cell[][] allCells = field.getOcean();
+            
+            Integer width = field.getWidth();
+            Integer height = field.getHeight();
+            Integer startX = (x - radius < 0)? (x - radius) + width : (x - radius); // 9
+            Integer startY = (y - radius < 0)? (y - radius) + height : (y - radius); // 7
+            
+            for(int i = 0; i < radius*2 + 1; i++){
+                for(int j = 0; j < radius*2 + 1; j++){
+                    Integer curX = (startX + j) < width ? (startX + j) :  (startX + j) % width;
+                    Integer curY = (startY + i) < height ? (startY + i) : (startY + i) % height; 
+                    
+                    Cell newCell = allCells[curY][curX];
+                    newCell.setTempCoords(new Tuple(i,j));
+                    fieldOfView.add(newCell);
+                }
+            }
             
         }
         return fieldOfView;
@@ -139,7 +160,6 @@ public class Model implements IObserver{
             }
             field.setCell(fish.getCoordinates(), cellValue);
         }
-        createFood();
         setObserver();
     }
     
@@ -147,10 +167,6 @@ public class Model implements IObserver{
         for(IFish fish : fishes){
             fish.addObserver(this);
         }
-    }
-    
-    private void createFood(){
-        //TODO
     }
     
     public List<IFish> getFishes() {
