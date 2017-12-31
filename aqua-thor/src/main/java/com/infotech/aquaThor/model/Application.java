@@ -7,6 +7,8 @@ package com.infotech.aquaThor.model;
 
 import com.infotech.aquaThor.interfaces.IField;
 import com.infotech.aquaThor.interfaces.IRenderer;
+import com.infotech.aquaThor.model.utils.Cell;
+import com.infotech.aquaThor.model.utils.CellContent;
 import com.infotech.aquaThor.view.render.SimpleConsoleRenderer;
 
 /**
@@ -30,27 +32,53 @@ public class Application extends Thread{
     @Override
     public void run() {
        
-        Thread ren = (Thread)render;
+        //Thread ren = (Thread)render;
         Thread foodCreator = (Thread)fc;
         
         foodCreator.start();
-        ren.start();
+        //ren.start();
         
         while(true){
             if(!Thread.interrupted()){
                 try{
-                    model.bypassAllElements();
                     synchronized(this.field){
-                        field = model.getField();
+                        System.out.printf("\033[H\033[2J");
+                        Cell[][] ocean = this.field.getOcean();
+                        for(int i = 0; i < field.getHeight(); i++){
+                            for(int j = 0; j < field.getWidth(); j++){
+                                Cell cell = ocean[i][j];
+                                
+                                if(null != cell.getContent())
+                                    switch (cell.getContent()) {
+                                    case EMPTY:
+                                        System.out.print("-");
+                                        break;
+                                    case FOOD:
+                                        System.out.print("*");
+                                        break;
+                                    case FISH:
+                                        System.out.print("f");
+                                        break;
+                                    case SHARK:
+                                        System.out.print("s");
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            System.out.println();
+                        }
+                        model.bypassAllElements();
                     }
                     Thread.sleep(1000);
                 }catch(Exception e){
-                    
+                    e.printStackTrace();
                 }
             }
             else
             {
-                ren.interrupt();
+                foodCreator.interrupt();
+                //ren.interrupt();
             };
         }
     }  

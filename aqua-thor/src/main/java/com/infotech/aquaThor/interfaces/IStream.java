@@ -5,6 +5,7 @@
  */
 package com.infotech.aquaThor.interfaces;
 
+import com.infotech.aquaThor.model.utils.Orientation;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -29,5 +30,5 @@ public interface IStream {
     
     String toString();
     
-    
+    Orientation getOrientation();
 }

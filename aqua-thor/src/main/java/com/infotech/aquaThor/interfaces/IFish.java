@@ -20,9 +20,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public interface IFish {
    
+    public Integer getAge();
+    
+    public Integer getStarvingTime();
+    
     public void addObserver(IObserver observer);
     
-    public Tuple move(List<Cell> fieldOfview);
+    public Tuple move(List<Cell> fieldOfview, boolean closedField);
     
     public Tuple getCoordinates();
     

@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <input>
-    <field width="10" height="10">
-        <closed>false</closed>
+    <field width="30" height="30">
+        <closed>true</closed>
     </field>
     
     <streams>
         <stream orientation="horizontal">
             <stream_speed>1</stream_speed>
-            <start_coord>12</start_coord>
-            <finish_coord>17</finish_coord>
+            <start_coord>3</start_coord>
+            <finish_coord>9</finish_coord>
         </stream>
     </streams>
     
-    <fishes>
-        <fish type="victim" x="2" y="0">
-            <live_time>15</live_time>
-            <live_time_without_food>15</live_time_without_food>
-            <speed>2</speed>
+    <fishes>        
+        <fish type="victim" x="2" y="8">
+            <live_time>30</live_time>
+            <live_time_without_food>7</live_time_without_food>
+            <speed>1</speed>
             <sense_radius>3</sense_radius>
         </fish>
         
-        <fish type="victim" x="3" y="3">
-            <live_time>15</live_time>
-            <live_time_without_food>15</live_time_without_food>
-            <speed>2</speed>
+        <fish type="victim" x="3" y="8">
+            <live_time>30</live_time>
+            <live_time_without_food>7</live_time_without_food>
+            <speed>1</speed>
             <sense_radius>3</sense_radius>
         </fish>
         
-        <fish type="predator" x="2" y="9">
-            <live_time>15</live_time>
-            <live_time_without_food>15</live_time_without_food>
+        <fish type="predator" x="2" y="5">
+            <live_time>30</live_time>
+            <live_time_without_food>18</live_time_without_food>
             <speed>2</speed>
-            <sense_radius>3</sense_radius>
+            <sense_radius>5</sense_radius>
         </fish>
         
     </fishes>

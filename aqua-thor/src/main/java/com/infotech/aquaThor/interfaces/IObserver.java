@@ -6,6 +6,7 @@
 package com.infotech.aquaThor.interfaces;
 
 import com.infotech.aquaThor.model.utils.Cell;
+import com.infotech.aquaThor.model.utils.CellContent;
 import com.infotech.aquaThor.model.utils.Tuple;
 
 /**
@@ -18,4 +19,5 @@ public interface IObserver {
     
     public void foodEatten(Cell coord);
     
+    public void fishCreated(Cell coord, CellContent type, IFish newFish);
 }

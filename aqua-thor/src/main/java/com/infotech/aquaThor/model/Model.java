@@ -12,8 +12,10 @@ import com.infotech.aquaThor.model.entities.Shark;
 import com.infotech.aquaThor.model.entities.Stream;
 import com.infotech.aquaThor.model.utils.Cell;
 import com.infotech.aquaThor.model.utils.CellContent;
+import com.infotech.aquaThor.model.utils.Orientation;
 import com.infotech.aquaThor.model.utils.Tuple;
 import com.infotech.aquaThor.view.parsers.FishAdapter;
+import com.sun.java.swing.plaf.gtk.GTKConstants;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -50,6 +52,14 @@ public class Model implements IObserver{
     @XmlElementWrapper(name="foods")
     @XmlElement(name="food", type=Food.class)
     private List<IFood> food = new ArrayList<>();
+    
+    @XmlElementWrapper(name="newFish")
+    @XmlElement(name="newFish", type=Food.class)
+    private List<IFish> newFish = new ArrayList<>();
+    
+    @XmlElementWrapper(name="deadFish")
+    @XmlElement(name="deadFish", type=Food.class)
+    private List<IFish> deadFish = new ArrayList<>();
 
     public Model(){}
     
@@ -61,26 +71,29 @@ public class Model implements IObserver{
     }
 
     public void bypassAllElements() throws Exception{
-        List<Cell> allCells = field.getAllCells();
+        Cell[][] allCells = field.getOcean();
         for(IFish fish : fishes){
-            Tuple nextCellForFish = fish.move(generateFieldOfView(fish));
-            for(Cell cell : allCells){
-                if(cell.getCoords().equals(fish.getCoordinates()))
-                {
-                    cell.setContent(CellContent.EMPTY);
-                }
-            }
-            for(Cell cell : allCells){
-                if(cell.getCoords().equals(nextCellForFish))
-                {
+            if(!deadFish.contains(fish)){
+                Tuple nextCellForFish = fish.move(generateFieldOfView(fish), field.isClosed());
+                if(CheckLiveTime(fish)){
                     if(fish instanceof Fish)
-                        cell.setContent(CellContent.FISH);
+                        allCells[nextCellForFish.y][nextCellForFish.x].setContent(CellContent.FISH);
                     else if(fish instanceof Shark)
-                        cell.setContent(CellContent.SHARK);
+                        allCells[nextCellForFish.y][nextCellForFish.x].setContent(CellContent.SHARK);
                     fish.setCoordinates(nextCellForFish);
                 }
             }
         }
+        addChildrenToFishList();
+        removeDead();
+    }
+    
+    public void fishCreated(Cell coord, CellContent type, IFish child){
+
+        newFish.add(child);
+        child.addObserver(this);
+        coord.setContent(type);
+        field.setCell(coord.getCoords(), type);            
     }
     
     public void fishEatten(Cell cell){
@@ -88,11 +101,9 @@ public class Model implements IObserver{
         for(IFish fish: fishes){
             if(fish.getCoordinates().equals(cell.getCoords())){
                 removingFishes.add(fish);
-                cell.setContent(CellContent.EMPTY);
             }
         }
-        System.out.println("[SHARK ATE FISH]");
-        fishes.removeAll(removingFishes);
+        deadFish.addAll(removingFishes);
     }  
     
     public void foodEatten(Cell cell){
@@ -100,11 +111,14 @@ public class Model implements IObserver{
         for(IFood f: food){
             if(f.getCoordinates().equals(cell.getCoords())){
                 removingFood.add(f);
-                cell.setContent(CellContent.EMPTY);
             }
         }
-        System.out.println("[FISH ATE FOOD]");
         food.removeAll(removingFood);
+    }
+    
+    private void addChildrenToFishList(){
+        fishes.addAll(newFish);
+        newFish.clear();
     }
     
     private List<Cell> generateFieldOfView(IFish fish){
@@ -162,6 +176,76 @@ public class Model implements IObserver{
         }
         setObserver();
     }
+    
+    private boolean CheckLiveTime(IFish fish){
+        if(fish.getAge() <= fish.getLiveTime() 
+                && fish.getStarvingTime() <= fish.getLiveTimeWithoutFood()){
+            return true;
+        }
+        else{
+            deadFish.add(fish);  //смерть
+            return false;
+        }
+    }
+    
+    private void removeDead(){
+        fishes.removeAll(deadFish);
+        deadFish.clear();
+    }
+    
+    /*
+    private void makeStreams(){
+        for(IStream stream : streams){
+            Integer start = stream.getStartPos();
+            Integer from;
+            Integer to;
+            Integer direction = Math.round(Math.signum(start));
+            start = Math.abs(start);
+            
+            if(stream.getOrientation() == Orientation.HORIZONTAL){
+                if(direction > 0){
+                    from = 0;
+                    to = field.getWidth() - 1;
+                }
+                else{
+                    from = field.getWidth() - 1;
+                    to = 0;
+                }
+                
+                while(!from.equals(to)){
+                    moveObject(new Tuple(from,start), new Tuple(from+direction,start));
+                    from+=direction;
+                }
+            }
+            else if(stream.getOrientation() == Orientation.VERTICAL){
+                if(direction > 0){
+                    from = 0;
+                    to = field.getHeight() - 1;
+                }
+                else{
+                    from = field.getHeight() - 1;
+                    to = 0;
+                }
+                
+                while(!from.equals(to)){
+                    moveObject(new Tuple(start,from), new Tuple(start,from+direction));
+                    from+=direction;
+                }
+            }
+        }
+    }
+    
+    private void moveObject(Tuple from, Tuple to){
+        Cell[][] allCells = field.getOcean();
+        
+        allCells[to.y][to.x] = allCells[from.y][from.x];
+        for(IFish fish : fishes){
+            if(fish.getCoordinates().equals(from)){
+                fish.setCoordinates(to);
+            }
+        }
+    }
+    */
     
     private void setObserver(){
         for(IFish fish : fishes){
