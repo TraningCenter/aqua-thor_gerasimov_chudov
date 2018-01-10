@@ -192,7 +192,7 @@ public class Shark extends Element implements IFish{
         setCoords(coords);
     }
     
-    private void checkCell(Cell cell){
+    public void checkCell(Cell cell){
         if(cell.getContent() == CellContent.FISH){
             eatFish(cell);
         }

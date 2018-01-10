@@ -100,6 +100,7 @@ public class Model implements IObserver{
                 }
             }
         }
+        makeStreams();
         addChildrenToFishList();
         removeDead();
     }
@@ -209,43 +210,26 @@ public class Model implements IObserver{
         deadFish.clear();
     }
     
-    /*
     private void makeStreams(){
         for(IStream stream : streams){
             Integer start = stream.getStartPos();
-            Integer from;
-            Integer to;
-            Integer direction = Math.round(Math.signum(start));
-            start = Math.abs(start);
-            
+            Integer finish = stream.getFinishPos();
+            Float dest = Math.signum(finish - start);
+            Integer xStart;
+            Integer xFin;
+
             if(stream.getOrientation() == Orientation.HORIZONTAL){
-                if(direction > 0){
-                    from = 0;
-                    to = field.getWidth() - 1;
-                }
-                else{
-                    from = field.getWidth() - 1;
-                    to = 0;
-                }
-                
-                while(!from.equals(to)){
-                    moveObject(new Tuple(from,start), new Tuple(from+direction,start));
-                    from+=direction;
+                for(int x=0; x < field.getWidth(); x+=dest){
+                    for(int y=start; y < finish; y+=dest){
+                        moveObject(new Tuple(x,y), new Tuple(x-stream.getSpeed(),y));
+                    }
                 }
             }
             else if(stream.getOrientation() == Orientation.VERTICAL){
-                if(direction > 0){
-                    from = 0;
-                    to = field.getHeight() - 1;
-                }
-                else{
-                    from = field.getHeight() - 1;
-                    to = 0;
-                }
-                
-                while(!from.equals(to)){
-                    moveObject(new Tuple(start,from), new Tuple(start,from+direction));
-                    from+=direction;
+                for(int y=0; y < field.getHeight(); y+=dest){
+                    for(int x=start; x < finish; x+=dest){
+                        moveObject(new Tuple(x,y), new Tuple(x,y-stream.getSpeed()));
+                    }
                 }
             }
         }
@@ -253,15 +237,59 @@ public class Model implements IObserver{
     
     private void moveObject(Tuple from, Tuple to){
         Cell[][] allCells = field.getOcean();
+
         
-        allCells[to.y][to.x] = allCells[from.y][from.x];
-        for(IFish fish : fishes){
-            if(fish.getCoordinates().equals(from)){
-                fish.setCoordinates(to);
+        if(field.isClosed()){
+            if(to.y < 0) to.y = 0;
+            if(to.x < 0) to.x = 0;
+            if(to.x >= field.getWidth()) to.x = field.getWidth()-1;
+            if(to.y >= field.getHeight()) to.y = field.getHeight()-1;
+            
+            Cell fromCell = allCells[from.y][from.x];
+            Cell toCell = allCells[to.y][to.x];
+            if((fromCell.getContent() == CellContent.EMPTY) || (fromCell.getContent() == CellContent.FOOD)){
+
             }
-        }
+            else{
+                for(IFish fish : fishes){
+                        if(fish.getCoordinates().equals(from)){
+                            CellContent cont = fromCell.getContent();
+                            fromCell.setContent(CellContent.EMPTY);
+                            toCell.setContent(cont);
+                            
+                            fish.setCoordinates(to);
+                            fish.checkCell(allCells[to.y][to.x]);
+                            break;
+                        }
+                    }
+                }
+            }
+        else{
+           if(to.x < 0) to.x = field.getWidth()-1;
+           if(to.y < 0) to.y = field.getHeight()-1;
+           if(to.x >= field.getWidth()) to.x = 0;
+           if(to.y >= field.getHeight()) to.y = 0;
+           
+            Cell fromCell = allCells[from.y][from.x];
+            Cell toCell = allCells[to.y][to.x];
+            if((fromCell.getContent() == CellContent.EMPTY) || (fromCell.getContent() == CellContent.FOOD)){
+
+            }
+            else{
+                for(IFish fish : fishes){
+                        if(fish.getCoordinates().equals(from)){
+                            CellContent cont = fromCell.getContent();
+                            fromCell.setContent(CellContent.EMPTY);
+                            toCell.setContent(cont);
+                            
+                            fish.setCoordinates(to);
+                            fish.checkCell(allCells[to.y][to.x]);
+                            break;
+                        }
+                    }
+                }
+            }    
     }
-    */
     
     private void setObserver(){
         for(IFish fish : fishes){

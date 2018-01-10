@@ -45,6 +45,8 @@ public interface IFish {
     public void setSpeed(int speed);
 
     public int getSenseRadius();
+    
+    public void checkCell(Cell cell);
 
     public void setSenseRadius(int senseRadius);
     
