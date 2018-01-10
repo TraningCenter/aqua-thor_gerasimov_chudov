@@ -5,6 +5,7 @@
  */
 package com.infotech.aquaThor.model;
 
+import com.infotech.aquaThor.Main;
 import com.infotech.aquaThor.interfaces.IField;
 import com.infotech.aquaThor.interfaces.IRenderer;
 import com.infotech.aquaThor.model.utils.Cell;
@@ -66,11 +67,12 @@ public class Application extends Thread{
                                         break;
                                 }
                             }
-                            System.out.println();
+                            System.out.print("\n");
                         }
+                        Thread.sleep(1500);
                         model.bypassAllElements();
                     }
-                    Thread.sleep(1000);
+                    Thread.sleep(600);
                 }catch(Exception e){
                     e.printStackTrace();
                 }

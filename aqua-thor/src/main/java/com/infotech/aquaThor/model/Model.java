@@ -14,8 +14,9 @@ import com.infotech.aquaThor.model.utils.Cell;
 import com.infotech.aquaThor.model.utils.CellContent;
 import com.infotech.aquaThor.model.utils.Orientation;
 import com.infotech.aquaThor.model.utils.Tuple;
+import com.infotech.aquaThor.view.parsers.FieldAdapter;
 import com.infotech.aquaThor.view.parsers.FishAdapter;
-import com.sun.java.swing.plaf.gtk.GTKConstants;
+//import com.sun.java.swing.plaf.gtk.GTKConstants;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -37,7 +38,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Model implements IObserver{
     
-    @XmlElement(name="field", type=Field.class)
+    @XmlElement(name="field")
+    @XmlJavaTypeAdapter(FieldAdapter.class)
     private IField field;
     
     @XmlElementWrapper(name="fishes")
@@ -81,6 +83,20 @@ public class Model implements IObserver{
                     else if(fish instanceof Shark)
                         allCells[nextCellForFish.y][nextCellForFish.x].setContent(CellContent.SHARK);
                     fish.setCoordinates(nextCellForFish);
+                }
+                if(field.isClosed()){
+                    if(nextCellForFish.x < 0){
+                        nextCellForFish.x = field.getWidth() - 1;
+                    }
+                    if(nextCellForFish.y < 0){
+                        nextCellForFish.y = field.getHeight() - 1;
+                    }
+                    if(nextCellForFish.x > field.getWidth()){
+                        nextCellForFish.x = 0;
+                    }
+                    if(nextCellForFish.y > field.getHeight()){
+                        nextCellForFish.y = 0;
+                    }
                 }
             }
         }
