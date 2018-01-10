@@ -44,6 +44,7 @@ class MyHandler extends DefaultHandler{
             boolean bLiveTime = false;
             boolean bLiveTimeWithoutFood = false;
             boolean bFishSpeed = false;
+            boolean bRepr = false;
             boolean bSenseRadius = false;
                     
             @Override
@@ -106,6 +107,9 @@ class MyHandler extends DefaultHandler{
                 else if(qName.equalsIgnoreCase("speed")){
                     bFishSpeed = true;
                 }
+                else if(qName.equalsIgnoreCase("reproduction")){
+                    bRepr = true;
+                }
                 else if(qName.equalsIgnoreCase("sense_radius")){
                     bSenseRadius = true;
                 }
@@ -148,6 +152,10 @@ class MyHandler extends DefaultHandler{
                 if(bLiveTime){
                     fish.setLiveTime(Integer.parseInt(new String(ch,start,length)));
                     bLiveTime = false;
+                }
+               if(bRepr){
+                    fish.setReproduction(Integer.parseInt(new String(ch,start,length)));
+                    bRepr = false;
                 }
                 if(bLiveTimeWithoutFood){
                     fish.setLiveTimeWithoutFood(Integer.parseInt(new String(ch,start,length)));

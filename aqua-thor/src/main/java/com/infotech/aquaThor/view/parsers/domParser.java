@@ -59,6 +59,7 @@ public class domParser implements IParser{
                     Fish fish = new Fish();
                     fish.setXCoord(Integer.parseInt(elem.getAttribute("x")));
                     fish.setYCoord(Integer.parseInt(elem.getAttribute("y")));
+                    fish.setReproduction(Integer.parseInt(elem.getElementsByTagName("reproduction").item(0).getTextContent()));
                     fish.setLiveTime(Integer.parseInt(elem.getElementsByTagName("live_time").item(0).getTextContent()));
                     fish.setLiveTimeWithoutFood(Integer.parseInt(elem.getElementsByTagName("live_time_without_food").item(0).getTextContent()));
                     fish.setSpeed(Integer.parseInt(elem.getElementsByTagName("speed").item(0).getTextContent()));
@@ -69,6 +70,7 @@ public class domParser implements IParser{
                     Shark fish = new Shark();
                     fish.setXCoord(Integer.parseInt(elem.getAttribute("x")));
                     fish.setYCoord(Integer.parseInt(elem.getAttribute("y")));
+                    fish.setReproduction(Integer.parseInt(elem.getElementsByTagName("reproduction").item(0).getTextContent()));
                     fish.setLiveTime(Integer.parseInt(elem.getElementsByTagName("live_time").item(0).getTextContent()));
                     fish.setLiveTimeWithoutFood(Integer.parseInt(elem.getElementsByTagName("live_time_without_food").item(0).getTextContent()));
                     fish.setSpeed(Integer.parseInt(elem.getElementsByTagName("speed").item(0).getTextContent()));

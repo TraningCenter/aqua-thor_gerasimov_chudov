@@ -42,6 +42,10 @@ public interface IFish {
 
     public int getSpeed();
 
+    public void setReproduction(int time);
+    
+    public int getReproduction();
+    
     public void setSpeed(int speed);
 
     public int getSenseRadius();

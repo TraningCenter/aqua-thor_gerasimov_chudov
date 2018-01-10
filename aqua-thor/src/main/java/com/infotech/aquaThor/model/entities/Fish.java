@@ -34,14 +34,14 @@ public class Fish extends Element implements IFish{
     List<IObserver> observers = new ArrayList<>();
     Random rnd;
 
-    public Fish(Integer liveTime, Integer liveTimeWithoutFood, Integer speed, Integer senseRadius) {
+    public Fish(Integer liveTime, Integer liveTimeWithoutFood, Integer speed, Integer senseRadius, Integer reprTime) {
         this.liveTime = liveTime;
         this.liveTimeWithoutFood = liveTimeWithoutFood;
         this.speed = speed;
         this.senseRadius = senseRadius;
         this.age = 0;
         this.starvingTime = 0;
-        this.reprTime = 5;
+        this.reprTime = reprTime;
         this.reprCount = 0;
         rnd = new Random();
     }
@@ -307,6 +307,13 @@ public class Fish extends Element implements IFish{
         return this.starvingTime;
     }
     
+    public int getReproduction(){
+        return this.reprTime;
+    }
+    
+    public void setReproduction(int time){
+        this.reprTime = time;
+    }
     @Override
     public String toString(){
         String result = new String();

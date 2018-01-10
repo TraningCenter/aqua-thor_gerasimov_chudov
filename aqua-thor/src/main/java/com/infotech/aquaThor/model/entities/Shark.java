@@ -36,19 +36,19 @@ public class Shark extends Element implements IFish{
     public Shark() {
         this.age = 0;
         this.starvingTime = 0;
-        this.reprTime = 20;
+        this.reprTime = 7;
         this.reprCount = 0;
         rnd = new Random();
     }
 
-    public Shark(Integer liveTime, Integer liveTimeWithoutFood, Integer speed, Integer senseRadius) {
+    public Shark(Integer liveTime, Integer liveTimeWithoutFood, Integer speed, Integer senseRadius, Integer reprTime) {
         this.liveTime = liveTime;
         this.liveTimeWithoutFood = liveTimeWithoutFood;
         this.speed = speed;
         this.senseRadius = senseRadius;
         this.age = 0;
         this.starvingTime = 0;
-        this.reprTime = 7;
+        this.reprTime = reprTime;
         this.reprCount = 0;
         rnd = new Random();
     }
@@ -272,6 +272,16 @@ public class Shark extends Element implements IFish{
     public Integer getStarvingTime(){
         return this.starvingTime;
     }
+    
+    public int getReproduction(){
+        return this.reprTime;
+    }
+    
+    public void setReproduction(int time){
+        this.reprTime = time;
+    }
+    
+    
    
     @Override
     public String toString(){
