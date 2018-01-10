@@ -17,12 +17,14 @@
             <live_time>15</live_time>
             <live_time_without_food>15</live_time_without_food>
             <speed>2</speed>
+            <reproduction>5</reproduction>
             <sense_radius>4</sense_radius>
         </fish>
         <fish type="predator" x="3" y="6">
             <live_time>15</live_time>
             <live_time_without_food>15</live_time_without_food>
             <speed>2</speed>
+            <reproduction>7</reproduction>
             <sense_radius>4</sense_radius>
         </fish>
     </fishes>
