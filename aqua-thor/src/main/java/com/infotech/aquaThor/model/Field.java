@@ -11,28 +11,15 @@ import com.infotech.aquaThor.model.utils.Tuple;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  *
  * @author alegerd
  */
 
-@XmlRootElement(name="folder")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Field implements IField{
     
-    @XmlAttribute(name="width")
     private Integer width;
-    
-    @XmlAttribute(name="height")
     private Integer height;
-    
-    @XmlElement(name="closed")
     private boolean closed;
     
     private Cell[][] ocean;

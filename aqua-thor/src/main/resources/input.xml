@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <input>
-    <field width="30" height="30">
-        <closed>true</closed>
+    <field width="50" height="40">
+        <closed>false</closed>
     </field>
     
     <streams>
@@ -9,6 +9,11 @@
             <stream_speed>1</stream_speed>
             <start_coord>3</start_coord>
             <finish_coord>9</finish_coord>
+        </stream>
+        <stream orientation="vertical">
+            <stream_speed>1</stream_speed>
+            <start_coord>4</start_coord>
+            <finish_coord>12</finish_coord>
         </stream>
     </streams>
     
