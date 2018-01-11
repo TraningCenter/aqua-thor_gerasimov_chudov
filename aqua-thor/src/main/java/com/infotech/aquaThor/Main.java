@@ -5,19 +5,9 @@
  */
 package com.infotech.aquaThor;
 
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.Terminal;
-import com.infotech.aquaThor.interfaces.*;
-import com.infotech.aquaThor.model.Application;
-import com.infotech.aquaThor.model.Model;
+import com.infotech.aquaThor.model.utils.Config;
 import com.infotech.aquaThor.view.InputMenu;
-import com.infotech.aquaThor.view.parsers.JaxbParser;
-import com.infotech.aquaThor.view.parsers.ParserProp;
-import com.infotech.aquaThor.view.parsers.SaxParser;
-import com.infotech.aquaThor.view.parsers.StaxParser;
-import com.infotech.aquaThor.view.parsers.domParser;
-import com.infotech.aquaThor.view.render.SimpleConsoleRenderer;
+
 import java.io.IOException;
 
 /**
@@ -37,7 +27,7 @@ public class Main {
         }catch(Exception e){
             e.printStackTrace();
         }*/
-        
+        Config.setDelay(1500);
         InputMenu inputMenu = new InputMenu();
         inputMenu.start();
     }

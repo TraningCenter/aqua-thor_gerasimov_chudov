@@ -5,12 +5,10 @@
  */
 package com.infotech.aquaThor.model;
 
-import com.infotech.aquaThor.Main;
 import com.infotech.aquaThor.interfaces.IField;
 import com.infotech.aquaThor.interfaces.IRenderer;
 import com.infotech.aquaThor.model.utils.Cell;
-import com.infotech.aquaThor.model.utils.CellContent;
-import com.infotech.aquaThor.view.render.SimpleConsoleRenderer;
+import com.infotech.aquaThor.model.utils.Config;
 
 /**
  *
@@ -19,25 +17,21 @@ import com.infotech.aquaThor.view.render.SimpleConsoleRenderer;
 public class Application extends Thread{
 
     Model model;
-    IRenderer render;
     IField field;
     FoodCreator fc;
     
     public Application(Model model){
         this.model = model;
         field = model.getField();
-        render = new SimpleConsoleRenderer(field);
         fc = new FoodCreator(field);
     }
     
     @Override
     public void run() {
-       
-        //Thread ren = (Thread)render;
+
         Thread foodCreator = (Thread)fc;
         
         foodCreator.start();
-        //ren.start();
         
         while(true){
             if(!Thread.interrupted()){
@@ -69,10 +63,10 @@ public class Application extends Thread{
                             }
                             System.out.print("\n");
                         }
-                        Thread.sleep(1500);
+                        Thread.sleep(Config.delay);
                         model.bypassAllElements();
                     }
-                    Thread.sleep(600);
+                    Thread.sleep(Config.delay/2);
                 }catch(Exception e){
                     e.printStackTrace();
                 }
@@ -80,7 +74,6 @@ public class Application extends Thread{
             else
             {
                 foodCreator.interrupt();
-                //ren.interrupt();
             };
         }
     }  

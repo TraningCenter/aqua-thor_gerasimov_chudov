@@ -3,27 +3,19 @@
     <field width="10" height="15">
         <closed>true</closed>
     </field>
-    
-    <streams>
-        <stream orientation="horizontal">
-            <stream_speed>1</stream_speed>
-            <start_coord>9</start_coord>
-            <finish_coord>10</finish_coord>
-        </stream>
-    </streams>
-    
+
     <fishes>
         <fish type="victim" x="3" y="5">
             <live_time>15</live_time>
             <live_time_without_food>15</live_time_without_food>
-            <speed>0</speed>
+            <speed>1</speed>
             <reproduction>20</reproduction>
             <sense_radius>4</sense_radius>
         </fish>
         <fish type="predator" x="3" y="6">
             <live_time>15</live_time>
             <live_time_without_food>15</live_time_without_food>
-            <speed>2</speed>
+            <speed>0</speed>
             <reproduction>7</reproduction>
             <sense_radius>4</sense_radius>
         </fish>

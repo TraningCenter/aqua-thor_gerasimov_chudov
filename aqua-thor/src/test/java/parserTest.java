@@ -44,13 +44,13 @@ public class parserTest extends Assert{
         stax = new StaxParser();
         jaxb = new JaxbParser();      
     }
-    
+
     @Test
     public void domTest(){
         IField field = new Field(10,15,true);
         List<IFish> fishes = new ArrayList<>();
         List<IStream> streams = new ArrayList<>();
-        Fish fish1 = new Fish(15,15,2,4,5);
+        Fish fish1 = new Fish(15,15,0,4,5);
         fish1.setXCoord(3);
         fish1.setYCoord(5);
         fishes.add((IFish)fish1);
@@ -58,7 +58,7 @@ public class parserTest extends Assert{
         fish2.setXCoord(3);
         fish2.setYCoord(6);
         fishes.add((IFish)fish2);
-        Stream stream = new Stream(12,17,1);
+        Stream stream = new Stream(9,10,1);
         stream.setOrientation(Orientation.HORIZONTAL);
         streams.add((IStream)stream);
         Model model = new Model(field, fishes, streams);
@@ -75,7 +75,7 @@ public class parserTest extends Assert{
         IField field = new Field(10,15,true);
         List<IFish> fishes = new ArrayList<>();
         List<IStream> streams = new ArrayList<>();
-        Fish fish1 = new Fish(15,15,2,4,5);
+        Fish fish1 = new Fish(15,15,0,4,5);
         fish1.setXCoord(3);
         fish1.setYCoord(5);
         fishes.add((IFish)fish1);
@@ -83,7 +83,7 @@ public class parserTest extends Assert{
         fish2.setXCoord(3);
         fish2.setYCoord(6);
         fishes.add((IFish)fish2);
-        Stream stream = new Stream(12,17,1);
+        Stream stream = new Stream(9,10,1);
         stream.setOrientation(Orientation.HORIZONTAL);
         streams.add((IStream)stream);
         Model model = new Model(field, fishes, streams);
@@ -94,7 +94,8 @@ public class parserTest extends Assert{
         assertEquals(model.toString(), actual);
     }
 
-    /*
+
+/*
     @Test
     public void staxTest(){
         IField field = new Field(10,15,true);
