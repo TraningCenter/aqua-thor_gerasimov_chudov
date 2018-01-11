@@ -12,6 +12,7 @@ import com.infotech.aquaThor.model.entities.Shark;
 import com.infotech.aquaThor.model.entities.Stream;
 import com.infotech.aquaThor.model.utils.Orientation;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -192,7 +193,7 @@ public class SaxParser implements IParser{
 	SAXParser saxParser = factory.newSAXParser();
         
         MyHandler handler = new MyHandler();
-        InputStream stream = ClassLoader.getSystemResourceAsStream(file);
+        InputStream stream = new FileInputStream(file);
         saxParser.parse(stream, handler);
         IField field = handler.getFieldList().get(0);
         result = new Model(field, handler.getFishList(), handler.getStreamList());

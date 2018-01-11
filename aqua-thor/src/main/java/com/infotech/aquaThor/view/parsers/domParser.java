@@ -12,6 +12,7 @@ import com.infotech.aquaThor.model.entities.Fish;
 import com.infotech.aquaThor.model.entities.Shark;
 import com.infotech.aquaThor.model.entities.Stream;
 import com.infotech.aquaThor.model.utils.Orientation;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class domParser implements IParser{
         List<IStream> streams = new ArrayList<>();
         IField field;
         
-        InputStream input = ClassLoader.getSystemResourceAsStream(file);
+        InputStream input = new FileInputStream(file);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 	Document doc = dBuilder.parse(input);

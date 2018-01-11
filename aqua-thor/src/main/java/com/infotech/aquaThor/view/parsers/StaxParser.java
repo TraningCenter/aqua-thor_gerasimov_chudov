@@ -15,6 +15,7 @@ import com.infotech.aquaThor.model.entities.Fish;
 import com.infotech.aquaThor.model.entities.Shark;
 import com.infotech.aquaThor.model.entities.Stream;
 import com.infotech.aquaThor.model.utils.Orientation;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.namespace.QName;
@@ -39,7 +40,7 @@ public class StaxParser implements IParser{
         List<IStream> streams = new ArrayList<>();
         
         XMLInputFactory factory = XMLInputFactory.newInstance();
-        XMLEventReader eventReader = factory.createXMLEventReader(ClassLoader.getSystemResourceAsStream(file));
+        XMLEventReader eventReader = factory.createXMLEventReader(new FileInputStream(file));
         
         while (eventReader.hasNext()){
             XMLEvent xmlEvent = eventReader.nextEvent();

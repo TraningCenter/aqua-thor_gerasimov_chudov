@@ -64,7 +64,7 @@ public class parserTest extends Assert{
         Model model = new Model(field, fishes, streams);
         String actual = new String();
         try{
-            actual = dom.parse("testInput.xml").toString();
+            actual = dom.parse("configurations/testInput.xml").toString();
         }catch(Exception e){}
         assertEquals(model.toString(), actual);
     }
@@ -89,7 +89,7 @@ public class parserTest extends Assert{
         Model model = new Model(field, fishes, streams);
         String actual = new String();
         try{
-            actual = sax.parse("testInput.xml").toString();
+            actual = sax.parse("configurations/testInput.xml").toString();
         }catch(Exception e){}
         assertEquals(model.toString(), actual);
     }
@@ -114,7 +114,7 @@ public class parserTest extends Assert{
         Model model = new Model(field, fishes, streams);
         String actual = new String();
         try{
-            actual = stax.parse("testInput.xml").toString();
+            actual = stax.parse("configurations/testInput.xml").toString();
         }catch(Exception e){}
         assertEquals(model.toString(), actual);
     }
@@ -138,7 +138,7 @@ public class parserTest extends Assert{
         Model model = new Model(field, fishes, streams);
         String actual = new String();
         try{
-            actual = jaxb.parse("testInput.xml").toString();
+            actual = jaxb.parse("configurations/testInput.xml").toString();
         }catch(Exception e){}
         assertEquals(model.toString(), actual);
     }

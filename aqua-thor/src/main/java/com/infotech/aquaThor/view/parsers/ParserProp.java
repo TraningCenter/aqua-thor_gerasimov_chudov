@@ -13,7 +13,7 @@ import java.util.Properties;
 
 public class ParserProp {
     
-    private final static String PATH = "src/main/resources/parser.properties";
+    private final static String PATH = "configurations/parser.properties";
     private final static String COMMENT = " Select parser type form list:\n"
                                                 + "# DOM;\n"
                                                 + "# SAX;\n"

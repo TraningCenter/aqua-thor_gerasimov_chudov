@@ -15,7 +15,7 @@ import javax.xml.bind.Unmarshaller;
 public class JaxbParser implements IParser{
 
     public Model parse(String input) throws Exception {
-        File file = new File(getClass().getClassLoader().getResource(input).getFile());
+        File file = new File(input);
         JAXBContext jContext = JAXBContext.newInstance(Model.class);
         Unmarshaller unmarshaller = jContext.createUnmarshaller();
         Model model = (Model) unmarshaller.unmarshal(file);
