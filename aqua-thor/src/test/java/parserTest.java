@@ -95,7 +95,6 @@ public class parserTest extends Assert{
     }
 
 
-/*
     @Test
     public void staxTest(){
         IField field = new Field(10,15,true);
@@ -109,7 +108,7 @@ public class parserTest extends Assert{
         fish2.setXCoord(3);
         fish2.setYCoord(6);
         fishes.add((IFish)fish2);
-        Stream stream = new Stream(12,17,1);
+        Stream stream = new Stream(9,10,1);
         stream.setOrientation(Orientation.HORIZONTAL);
         streams.add((IStream)stream);
         Model model = new Model(field, fishes, streams);
@@ -133,7 +132,7 @@ public class parserTest extends Assert{
         fish2.setXCoord(3);
         fish2.setYCoord(6);
         fishes.add((IFish)fish2);
-        Stream stream = new Stream(12,17,1);
+        Stream stream = new Stream(9,10,1);
         stream.setOrientation(Orientation.HORIZONTAL);
         streams.add((IStream)stream);
         Model model = new Model(field, fishes, streams);
@@ -143,5 +142,4 @@ public class parserTest extends Assert{
         }catch(Exception e){}
         assertEquals(model.toString(), actual);
     }
-    */
 }
