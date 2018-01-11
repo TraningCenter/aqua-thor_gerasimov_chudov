@@ -119,7 +119,10 @@ public class StaxParser implements IParser{
                             xmlEvent = eventReader.nextEvent();
                             someFish.setSpeed(Integer.parseInt(xmlEvent.asCharacters().getData()));
                             break;
-                        
+                        case "reproduction":
+                            xmlEvent = eventReader.nextEvent();
+                            someFish.setReproduction(Integer.parseInt(xmlEvent.asCharacters().getData()));
+                            break;
                         case "sense_radius":
                             xmlEvent = eventReader.nextEvent();
                             someFish.setSenseRadius(Integer.parseInt(xmlEvent.asCharacters().getData()));

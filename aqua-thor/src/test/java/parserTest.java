@@ -94,7 +94,6 @@ public class parserTest extends Assert{
         assertEquals(model.toString(), actual);
     }
 
-    /*
     @Test
     public void staxTest(){
         IField field = new Field(10,15,true);
@@ -142,5 +141,4 @@ public class parserTest extends Assert{
         }catch(Exception e){}
         assertEquals(model.toString(), actual);
     }
-    */
 }
