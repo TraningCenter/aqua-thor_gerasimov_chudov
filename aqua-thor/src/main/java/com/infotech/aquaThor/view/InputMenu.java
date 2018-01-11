@@ -49,7 +49,7 @@ public class InputMenu {
     private ParserProp parserProp;
     private GraphicTerminal gTerminal;
     
-    {
+    public InputMenu(){
         try{
             size = new TerminalSize(35, 10);
             
@@ -58,13 +58,14 @@ public class InputMenu {
             terminalFactory.setInitialTerminalSize(size);
             terminal = terminalFactory.createTerminal();
             screen = new TerminalScreen(terminal);
+            screen.startScreen();
         } catch (IOException ex){
             ex.printStackTrace();
         }
         colorSelector = new RadioBoxList<>();
         parserSelector = new RadioBoxList<>();
         
-        colorSelector.addItem(TextColor.ANSI.WHITE);
+        colorSelector.addItem(TextColor.ANSI.BLACK);
         colorSelector.addItem(TextColor.ANSI.GREEN);
         colorSelector.addItem(TextColor.ANSI.BLUE);
         colorSelector.addItem(TextColor.ANSI.RED);
@@ -89,7 +90,6 @@ public class InputMenu {
     }
     
     public void start() throws IOException {
-        screen.startScreen();
         
         panel = new Panel();
         panel.setLayoutManager(new GridLayout(3));

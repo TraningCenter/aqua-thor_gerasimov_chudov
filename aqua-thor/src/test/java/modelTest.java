@@ -37,7 +37,7 @@ public class modelTest extends Assert{
     @Test
     public void test1(){
         try {
-            model = parser.parse("testInput.xml");
+            model = parser.parse("configurations/testInput.xml");
             model.bypassAllElements();
         }catch (Exception e){
 
@@ -48,7 +48,7 @@ public class modelTest extends Assert{
     @Test
     public void test2(){
         try{
-        model = parser.parse("testInput2.xml");
+        model = parser.parse("configurations/testInput2.xml");
         model.bypassAllElements();
         }catch (Exception e){
 
@@ -60,7 +60,7 @@ public class modelTest extends Assert{
     @Test
     public void test3(){
         try{
-            model = parser.parse("testInput3.xml");
+            model = parser.parse("configurations/testInput3.xml");
             model.bypassAllElements();
         }catch (Exception e){
 
@@ -72,7 +72,7 @@ public class modelTest extends Assert{
     @Test
     public void test4(){
         try{
-            model = parser.parse("testInput4.xml");
+            model = parser.parse("configurations/testInput4.xml");
             model.bypassAllElements();
         }catch (Exception e){
 

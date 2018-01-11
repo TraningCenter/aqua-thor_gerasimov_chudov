@@ -41,6 +41,9 @@ public class FishAdapter extends XmlAdapter<FishAdapter.AdapterFish, IFish>{
         
         @XmlElement(name="speed")
         public int speed;
+        
+        @XmlElement(name="reproduction")
+        public int reproduction;
     }
     
     @Override
@@ -54,6 +57,7 @@ public class FishAdapter extends XmlAdapter<FishAdapter.AdapterFish, IFish>{
             fish.setLiveTimeWithoutFood(v.liveTimeWithoutFood);
             fish.setSpeed(v.speed);
             fish.setSenseRadius(v.senseRadius);
+            fish.setReproduction(v.reproduction);
             return fish;
         }
         else if (v.type.equals("predator")){
@@ -64,6 +68,7 @@ public class FishAdapter extends XmlAdapter<FishAdapter.AdapterFish, IFish>{
             shark.setLiveTimeWithoutFood(v.liveTimeWithoutFood);
             shark.setSpeed(v.speed);
             shark.setSenseRadius(v.senseRadius);
+            shark.setReproduction(v.reproduction);
             return shark;
         }
         return null;

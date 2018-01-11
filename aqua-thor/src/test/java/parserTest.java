@@ -64,7 +64,7 @@ public class parserTest extends Assert{
         Model model = new Model(field, fishes, streams);
         String actual = new String();
         try{
-            actual = dom.parse("testInput.xml").toString();
+            actual = dom.parse("configurations/testInput.xml").toString();
         }catch(Exception e){}
         assertEquals(model.toString(), actual);
     }
@@ -89,7 +89,7 @@ public class parserTest extends Assert{
         Model model = new Model(field, fishes, streams);
         String actual = new String();
         try{
-            actual = sax.parse("testInput.xml").toString();
+            actual = sax.parse("configurations/testInput.xml").toString();
         }catch(Exception e){}
         assertEquals(model.toString(), actual);
     }
@@ -100,7 +100,7 @@ public class parserTest extends Assert{
         IField field = new Field(10,15,true);
         List<IFish> fishes = new ArrayList<>();
         List<IStream> streams = new ArrayList<>();
-        Fish fish1 = new Fish(15,15,2,4,5);
+        Fish fish1 = new Fish(15,15,0,4,5);
         fish1.setXCoord(3);
         fish1.setYCoord(5);
         fishes.add((IFish)fish1);
@@ -114,7 +114,7 @@ public class parserTest extends Assert{
         Model model = new Model(field, fishes, streams);
         String actual = new String();
         try{
-            actual = stax.parse("testInput.xml").toString();
+            actual = stax.parse("configurations/testInput.xml").toString();
         }catch(Exception e){}
         assertEquals(model.toString(), actual);
     }
@@ -124,7 +124,7 @@ public class parserTest extends Assert{
         IField field = new Field(10,15,true);
         List<IFish> fishes = new ArrayList<>();
         List<IStream> streams = new ArrayList<>();
-        Fish fish1 = new Fish(15,15,2,4,5);
+        Fish fish1 = new Fish(15,15,0,4,5);
         fish1.setXCoord(3);
         fish1.setYCoord(5);
         fishes.add((IFish)fish1);
@@ -138,7 +138,7 @@ public class parserTest extends Assert{
         Model model = new Model(field, fishes, streams);
         String actual = new String();
         try{
-            actual = jaxb.parse("testInput.xml").toString();
+            actual = jaxb.parse("configurations/testInput.xml").toString();
         }catch(Exception e){}
         assertEquals(model.toString(), actual);
     }
