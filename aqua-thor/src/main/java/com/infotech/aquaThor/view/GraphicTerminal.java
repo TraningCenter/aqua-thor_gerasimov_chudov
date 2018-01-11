@@ -36,7 +36,8 @@ import javafx.geometry.Orientation;
 
 public class GraphicTerminal{
     
-    private final static String PATH = "configurations/input.xml";
+    private final static String INPUT_PATH = "configurations/input.xml";
+    private final static String OUTPUT_PATH = "configurations/output.xml";
     private final int DEF_COLUMN = 20;
     private final int DEF_ROW = 18;
     private final char FISH = '∝';
@@ -92,9 +93,9 @@ public class GraphicTerminal{
     }
     
     private void init() throws Exception{
-        model = parser.parse(PATH);
+        model = parser.parse(INPUT_PATH);
         field = model.getField();
-        xmlWriter = new JaxbOutput();
+        xmlWriter = new JaxbOutput(OUTPUT_PATH);
         stats = new Statistics(model);
         simulation = true;
         pause = false;
@@ -272,9 +273,9 @@ public class GraphicTerminal{
     private void infoPanel(){
         
         String[] info = new String[3];
-        info[0] = "Fish count: " + String.valueOf(fishCount);
-        info[1] = "Shark count: " + String.valueOf(sharkCount);
-        info[2] = "Step count: " + String.valueOf(steps);
+        info[0] = "Fish count: ";
+        info[1] = "Shark count: ";
+        info[2] = "Step count: ";
         
         int panelWidth = 0;
         
@@ -284,7 +285,7 @@ public class GraphicTerminal{
             }
         }
         
-        infoPanelSize = new TerminalSize(panelWidth + 3, info.length + 2);
+        infoPanelSize = new TerminalSize(panelWidth + 6, info.length + 2);
         TerminalPosition infoPanelPosition = new TerminalPosition(controlPanelSize.getColumns() + 4, 0);
         
         drawFrame(infoPanelPosition, infoPanelSize);
@@ -295,6 +296,14 @@ public class GraphicTerminal{
             } catch (IOException ex){
                 ex.printStackTrace();
             }
+        }
+        
+        try{
+            stringDrawer(String.valueOf(fishCount), infoPanelPosition.getColumn() + info[0].length() + 1, 1);
+            stringDrawer(String.valueOf(sharkCount), infoPanelPosition.getColumn() + info[1].length() + 1, 2);
+            stringDrawer(String.valueOf(steps), infoPanelPosition.getColumn() + info[2].length() + 1, 3);
+        } catch (IOException ex){
+            ex.printStackTrace();
         }
     }
     

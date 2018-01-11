@@ -9,14 +9,19 @@ import java.io.File;
 import java.io.FileOutputStream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 public class JaxbOutput {
     
-    private final static String PATH = "configurations/output.xml";
+    private String path;
+    
+    public JaxbOutput(String path){
+        this.path = path;
+    }
     
     public void writeDatabase(Database database){
         try{
-            File file = new File(PATH);
+            File file = new File(path);
             JAXBContext jContext = JAXBContext.newInstance(Database.class);
             Marshaller marshaller = jContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -25,5 +30,13 @@ public class JaxbOutput {
         } catch (Exception ex){
             ex.printStackTrace();
         }
+    }
+    
+    public Database readDatabase() throws Exception{
+        File file = new File(path);
+        JAXBContext jContext = JAXBContext.newInstance(Database.class);
+        Unmarshaller unmarshaller = jContext.createUnmarshaller();
+        Database db = (Database) unmarshaller.unmarshal(file);
+        return db;
     }
 }

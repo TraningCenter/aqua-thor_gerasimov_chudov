@@ -102,6 +102,7 @@
                                         <include>input.xml</include>
                                         <include>parser.properties</include>
                                         <include>testInput.xml</include>
+                                        <include>testOutput.xml</include>
                                     </includes>
                                 </resource>
                             </resources>

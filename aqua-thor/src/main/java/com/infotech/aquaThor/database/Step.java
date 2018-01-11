@@ -46,4 +46,25 @@ public class Step implements IStep{
     public int getSharkCount() {
         return sharkCount;
     }
+    
+    public boolean equals(Object obj){
+        if (obj == null){
+            return false;
+        }
+        
+        if (obj == this){
+            return true;
+        }
+        
+        if (!(getClass() == obj.getClass())){
+            return false;
+        } else{
+            Step tmp = (Step)obj;
+            if (this.step == tmp.step && this.fishCount == tmp.fishCount && this.sharkCount == tmp.sharkCount){
+                return true;
+            } else{
+                return false;
+            }
+        }
+    }
 }

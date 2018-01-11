@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<database>
+    <steps>
+        <steps>
+            <steps number="0">
+                <fish-count>5</fish-count>
+                <shark-count>1</shark-count>
+            </steps>
+            <steps number="1">
+                <fish-count>5</fish-count>
+                <shark-count>1</shark-count>
+            </steps>
+            <steps number="2">
+                <fish-count>5</fish-count>
+                <shark-count>1</shark-count>
+            </steps>
+            <steps number="3">
+                <fish-count>5</fish-count>
+                <shark-count>1</shark-count>
+            </steps>
+        </steps>
+    </steps>
+</database>
