@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<input>
+    <field width="10" height="15">
+        <closed>false</closed>
+    </field>
+
+    <streams>
+        <stream orientation="horizontal">
+            <stream_speed>1</stream_speed>
+            <start_coord>1</start_coord>
+            <finish_coord>10</finish_coord>
+        </stream>
+    </streams>
+
+    <fishes>
+        <fish type="victim" x="5" y="3">
+            <live_time>15</live_time>
+            <live_time_without_food>15</live_time_without_food>
+            <speed>0</speed>
+            <reproduction>20</reproduction>
+            <sense_radius>4</sense_radius>
+        </fish>
+    </fishes>
+</input>

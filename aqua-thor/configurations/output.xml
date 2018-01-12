@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<database>
+    <steps>
+        <steps>
+            <steps number="0">
+                <fish-count>5</fish-count>
+                <shark-count>1</shark-count>
+            </steps>
+            <steps number="1">
+                <fish-count>8</fish-count>
+                <shark-count>1</shark-count>
+            </steps>
+            <steps number="2">
+                <fish-count>11</fish-count>
+                <shark-count>1</shark-count>
+            </steps>
+            <steps number="3">
+                <fish-count>14</fish-count>
+                <shark-count>1</shark-count>
+            </steps>
+            <steps number="4">
+                <fish-count>17</fish-count>
+                <shark-count>1</shark-count>
+            </steps>
+            <steps number="5">
+                <fish-count>22</fish-count>
+                <shark-count>1</shark-count>
+            </steps>
+            <steps number="6">
+                <fish-count>28</fish-count>
+                <shark-count>1</shark-count>
+            </steps>
+            <steps number="7">
+                <fish-count>34</fish-count>
+                <shark-count>1</shark-count>
+            </steps>
+        </steps>
+    </steps>
+</database>
